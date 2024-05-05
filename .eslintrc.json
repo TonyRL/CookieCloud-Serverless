@@ -1,0 +1,47 @@
+{
+    "extends": ["eslint:recommended", "plugin:@typescript-eslint/strict-type-checked", "plugin:unicorn/recommended", "plugin:@stylistic/recommended-extends", "prettier"],
+    "root": true,
+    "plugins": ["prettier", "unicorn"],
+    "parserOptions": {
+        "ecmaVersion": "latest",
+        "sourceType": "module",
+        "project": "./tsconfig.json"
+    },
+    "env": {
+        "es2024": true,
+        "worker": true
+    },
+    "rules": {
+        "arrow-body-style": "error",
+        "curly": ["error", "all"],
+        "eqeqeq": ["error", "always"],
+        "@stylistic/arrow-parens": ["error", "always"],
+        "@stylistic/brace-style": ["error", "1tbs", { "allowSingleLine": true }],
+        "@stylistic/comma-style": ["error", "last"],
+        "@stylistic/comma-dangle": ["error", "never"],
+        "@stylistic/function-paren-newline": ["error", "consistent"],
+        "@stylistic/indent": ["error", 4],
+        "@stylistic/max-len": ["error", { "code": 240 }],
+        "@stylistic/member-delimiter-style": [
+            "error",
+            {
+                "multiline": {
+                    "delimiter": "semi",
+                    "requireLast": true
+                },
+                "singleline": {
+                    "delimiter": "semi",
+                    "requireLast": false
+                },
+                "multilineDetection": "brackets"
+            }
+        ],
+        "@stylistic/semi": ["error", "always"],
+        "@typescript-eslint/restrict-template-expressions": "off",
+        "@typescript-eslint/no-unsafe-assignment": "off",
+        "@typescript-eslint/no-useless-template-literals": "error",
+        "prettier/prettier": "off",
+        "unicorn/no-null": "off",
+        "unicorn/prevent-abbreviations": "off"
+    }
+}
