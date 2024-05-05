@@ -1,0 +1,13 @@
+node_modules
+dist/*
+!dist/.gitkeep
+!dist/index.js
+.wrangler
+.dev.vars
+
+# Change them to your taste:
+package-lock.json
+yarn.lock
+bun.lockb
+.gitkeep
+.eslintcache
