@@ -15,7 +15,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v3
         with:
-          version: 8
+          version: 9
       - uses: actions/setup-node@v4
         with:
           node-version: lts/*
@@ -24,6 +24,9 @@ jobs:
       # Workaround for
       # https://github.com/cloudflare/wrangler-action/issues/199
       # https://github.com/cloudflare/wrangler-action/issues/231
+      # https://github.com/cloudflare/wrangler-action/issues/259
+      # fix were applied in https://github.com/cloudflare/wrangler-action/pull/235
+      # but reverted in https://github.com/cloudflare/wrangler-action/pull/265
       - name: Set wrangler version
         id: wrangler
         run: echo "version=$(jq -r .devDependencies.wrangler package.json | cut -c2-)" >> "$GITHUB_OUTPUT"

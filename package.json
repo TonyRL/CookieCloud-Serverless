@@ -16,21 +16,21 @@
     },
     "dependencies": {
         "crypto-js": "^4.2.0",
-        "hono": "^4.3.2",
+        "hono": "^4.4.4",
         "pako": "^2.1.0"
     },
     "devDependencies": {
-        "@cloudflare/workers-types": "^4.20240502.0",
-        "@stylistic/eslint-plugin": "^1.8.0",
+        "@cloudflare/workers-types": "^4.20240605.0",
+        "@stylistic/eslint-plugin": "^1.8.1",
         "@types/crypto-js": "^4.2.2",
         "@types/pako": "^2.0.3",
         "eslint": "^8.57.0",
         "eslint-config-prettier": "^9.1.0",
         "eslint-plugin-unicorn": "^52.0.0",
-        "prettier": "^3.2.5",
+        "prettier": "^3.3.1",
         "typescript": "^5.4.5",
-        "typescript-eslint": "^7.8.0",
-        "wrangler": "^3.53.1"
+        "typescript-eslint": "^7.12.0",
+        "wrangler": "^3.60.0"
     },
-    "packageManager": "pnpm@8.15.7+sha256.50783dd0fa303852de2dd1557cd4b9f07cb5b018154a6e76d0f40635d6cee019"
+    "packageManager": "pnpm@9.2.0+sha512.98a80fd11c2e7096747762304106432b3ddc67dcf54b5a8c01c93f68a2cd5e05e6821849522a06fb76284d41a2660d5e334f2ee3bbf29183bf2e739b1dafa771"
 }

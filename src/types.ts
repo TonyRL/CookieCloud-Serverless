@@ -1,9 +1,10 @@
-export type Bindings = {
+export interface Bindings {
     DB: D1Database;
     BASELIME_API_KEY: string;
-};
+    [key: string]: any;
+}
 
-export type Body = {
+export interface Body {
     /**
      * Encrypted Data
      */
@@ -16,9 +17,9 @@ export type Body = {
      * User Key
      */
     uuid: string;
-};
+}
 
-type CookieData = {
+interface CookieData {
     domain: string;
     hostOnly: boolean;
     httpOnly: boolean;
@@ -29,26 +30,26 @@ type CookieData = {
     session: boolean;
     storeId: string;
     value: string;
-};
+}
 
-export type DatabaseSchema = {
+export interface DatabaseSchema {
     created_at: number;
     encrypted: string;
     uuid: string;
-};
+}
 
-export type DecryptedData = {
+export interface DecryptedData {
     cookie_data: {
         [key: string]: CookieData[];
     };
     local_storage_data: unknown;
     update_time: string;
-};
+}
 
-export type SQLite_Master = {
+export interface SQLite_Master {
     type: string;
     name: string;
     tbl_name: string;
     rootpage: number;
     sql: string;
-};
+}
