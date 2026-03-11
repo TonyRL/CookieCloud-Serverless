@@ -79,7 +79,7 @@ app.post(
         }
 
         return c.json({ action: 'done' });
-    }
+    },
 );
 
 app.on(['GET', 'POST'], '/get/:uuid', async (c) => {

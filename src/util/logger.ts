@@ -30,7 +30,7 @@ class Logger {
         return this.log({ level: 'info', namespace, requestId, message, d1meta });
     }
 
-    error({ requestId, namespace, message, cf, d1meta }: Log) {
+    error({ requestId, namespace, message, d1meta }: Log) {
         return this.log({ level: 'error', namespace, requestId, message, d1meta });
     }
 }
