@@ -6,10 +6,10 @@
     "minify": true,
     "upload_source_maps": true,
     "observability": {
-        "enabled": true
+        "enabled": true,
     },
     "placement": {
-        "mode": "smart"
+        "mode": "smart",
     },
     // "kv_namespaces": [
     //     {
@@ -27,9 +27,9 @@
         {
             "binding": "DB", // i.e. available in your Worker on env.DB
             "database_name": "cookiecloud",
-            "database_id": "ae1ae5b1-4b0c-44e8-b9ab-170b5d162eb3"
-        }
-    ]
+            "database_id": "ae1ae5b1-4b0c-44e8-b9ab-170b5d162eb3",
+        },
+    ],
     // "ai": {
     //     "binding": "AI"
     // }

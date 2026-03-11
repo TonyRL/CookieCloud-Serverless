@@ -3,7 +3,7 @@ import { bodyLimit } from 'hono/body-limit';
 import { cors } from 'hono/cors';
 import { ungzip } from 'pako';
 import { decrypt } from './util/decrypt';
-import { Bindings, Body, DecryptedData } from './types';
+import { Bindings, Body, CryptoType, DecryptedData } from './types';
 import { insertOrReplaceData, populateData, selectData } from './model/data';
 
 const app = new Hono<{ Bindings: Bindings }>();
@@ -18,17 +18,24 @@ app.onError((err, c) => {
 
 app.all('/', (c) => c.text('Hello World!'));
 
+app.get('/health', (c) =>
+    c.json({
+        status: 'OK',
+        timestamp: new Date().toISOString(),
+    }),
+);
+
 app.post(
     '/update',
     bodyLimit({
-        maxSize: 1 * 1000 * 1000, // 1MB https://developers.cloudflare.com/d1/platform/limits/
+        maxSize: 1 * 1000 * 1000, // 1MB (max 2MB/per row) https://developers.cloudflare.com/d1/platform/limits/
         onError: (c) => c.text('Content Too Large', 413),
     }),
     async (c) => {
         const gzipped = c.req.header('Content-Encoding') === 'gzip';
-        const data = gzipped ? ungzip(await c.req.arrayBuffer()) : await c.req.json();
+        const body: Body = gzipped ? JSON.parse(decoder.decode(ungzip(new Uint8Array(await c.req.arrayBuffer())))) : await c.req.json();
 
-        const { encrypted, uuid }: Body = gzipped ? JSON.parse(decoder.decode(data)) : data;
+        const { encrypted, uuid, crypto_type = 'legacy' } = body;
         if (!encrypted || !uuid) {
             return c.text('Bad Request', 400);
         }
@@ -37,7 +44,7 @@ app.post(
         await populateData(db);
 
         try {
-            const info = await insertOrReplaceData(uuid, encrypted, db);
+            const info = await insertOrReplaceData(uuid, encrypted, crypto_type, db);
             console.log(c.req.path, `Inserting data for ${uuid}`, info.meta);
         } catch (error) {
             console.error(c.req.path, (error as Error).message);
@@ -66,17 +73,18 @@ app.on(['GET', 'POST'], '/get/:uuid', async (c) => {
     }
 
     if (c.req.header('Content-Type') !== 'application/json') {
-        return c.json({ encrypted: data.encrypted });
+        return c.json({ encrypted: data.encrypted, crypto_type: data.crypto_type });
     }
 
     const body: Body = await c.req.json();
     const password = body.password;
 
     if (!password) {
-        return c.json({ encrypted: data.encrypted });
+        return c.json({ encrypted: data.encrypted, crypto_type: data.crypto_type });
     }
 
-    return c.json(JSON.parse(decrypt(uuid, data.encrypted, password)) as DecryptedData);
+    const cryptoType: CryptoType = (c.req.query('crypto_type') as CryptoType) || data.crypto_type || 'legacy';
+    return c.json(JSON.parse(decrypt(uuid, data.encrypted, password, cryptoType)) as DecryptedData);
 });
 
 export default app;

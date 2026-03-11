@@ -1,3 +1,5 @@
+export type CryptoType = 'legacy' | 'aes-128-cbc-fixed';
+
 export interface Bindings {
     DB: D1Database;
 }
@@ -15,6 +17,10 @@ export interface Body {
      * User Key
      */
     uuid: string;
+    /**
+     * Encryption algorithm type
+     */
+    crypto_type?: CryptoType;
 }
 
 interface CookieData {
@@ -32,6 +38,7 @@ interface CookieData {
 
 export interface DatabaseSchema {
     created_at: number;
+    crypto_type: CryptoType;
     encrypted: string;
     uuid: string;
 }
