@@ -1,22 +1,12 @@
 import { DatabaseSchema, SQLite_Master } from '../types';
 
-const dropDataStmt = (db: D1Database) => db.prepare('DROP TABLE IF EXISTS data');
-export const dropData = (db: D1Database): Promise<D1Response> => dropDataStmt(db).run();
-
 const checkSqliteMasterStmt = (db: D1Database) => db.prepare('SELECT name FROM sqlite_master WHERE type = ? AND name = ?');
 const populateDataStmt = (db: D1Database) => db.prepare('CREATE TABLE IF NOT EXISTS data (uuid TEXT PRIMARY KEY, encrypted TEXT, created_at INTEGER)');
-export const populateData = async (db: D1Database, c: any): Promise<D1Response | void> => {
+export const populateData = async (db: D1Database): Promise<void> => {
     const dataTableExist = await checkSqliteMasterStmt(db).bind('table', 'data').first<SQLite_Master>();
     if (!dataTableExist) {
-        const logger = c.get('logger');
-
         const info = await populateDataStmt(db).run();
-        await logger.info({
-            requestId: c.get('requestId'),
-            namespace: c.req.path,
-            message: 'Populating data table',
-            d1meta: info.meta,
-        });
+        console.log('Populating data table', info.meta);
     }
 };
 

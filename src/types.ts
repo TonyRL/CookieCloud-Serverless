@@ -1,7 +1,5 @@
 export interface Bindings {
     DB: D1Database;
-    BASELIME_API_KEY: string;
-    [key: string]: any;
 }
 
 export interface Body {

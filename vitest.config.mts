@@ -6,11 +6,6 @@ export default defineWorkersConfig({
             workers: {
                 wrangler: {
                     configPath: "./wrangler.jsonc"
-                },
-                miniflare: {
-                    bindings: {
-                        BASELIME_API_KEY: "test-key"
-                    }
                 }
             }
         }
