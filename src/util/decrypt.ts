@@ -1,4 +1,5 @@
 import CryptoJS from 'crypto-js';
+
 import { CryptoType } from '../types';
 
 export function decrypt(uuid: string, encrypted: string, password: string, cryptoType: CryptoType = 'legacy') {

@@ -1,5 +1,5 @@
-import CryptoJS from 'crypto-js';
 import { SELF } from 'cloudflare:test';
+import CryptoJS from 'crypto-js';
 import { describe, expect, it } from 'vitest';
 
 describe('CookieCloud Worker', () => {

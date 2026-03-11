@@ -1,4 +1,5 @@
-export type CryptoType = 'legacy' | 'aes-128-cbc-fixed';
+export const CRYPTO_TYPES = ['legacy', 'aes-128-cbc-fixed'] as const;
+export type CryptoType = (typeof CRYPTO_TYPES)[number];
 
 export interface Bindings {
     DB: D1Database;
@@ -49,12 +50,4 @@ export interface DecryptedData {
     };
     local_storage_data: unknown;
     update_time: string;
-}
-
-export interface SQLite_Master {
-    type: string;
-    name: string;
-    tbl_name: string;
-    rootpage: number;
-    sql: string;
 }

@@ -1,5 +1,6 @@
 import CryptoJS from 'crypto-js';
 import { describe, expect, it } from 'vitest';
+
 import { decrypt } from '../src/util/decrypt';
 
 describe('decrypt', () => {

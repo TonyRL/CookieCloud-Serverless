@@ -2,9 +2,10 @@ import { Hono } from 'hono';
 import { bodyLimit } from 'hono/body-limit';
 import { cors } from 'hono/cors';
 import { ungzip } from 'pako';
-import { decrypt } from './util/decrypt';
-import { Bindings, Body, CryptoType, DecryptedData } from './types';
+
 import { insertOrReplaceData, populateData, selectData } from './model/data';
+import { Bindings, Body, CRYPTO_TYPES, CryptoType, DecryptedData } from './types';
+import { decrypt } from './util/decrypt';
 
 const app = new Hono<{ Bindings: Bindings }>();
 const decoder = new TextDecoder();
@@ -36,7 +37,7 @@ app.post(
         const body: Body = gzipped ? JSON.parse(decoder.decode(ungzip(new Uint8Array(await c.req.arrayBuffer())))) : await c.req.json();
 
         const { encrypted, uuid, crypto_type = 'legacy' } = body;
-        if (!encrypted || !uuid) {
+        if (!encrypted || !uuid || !CRYPTO_TYPES.includes(crypto_type)) {
             return c.text('Bad Request', 400);
         }
 
@@ -57,9 +58,6 @@ app.post(
 
 app.on(['GET', 'POST'], '/get/:uuid', async (c) => {
     const { uuid } = c.req.param();
-    if (!uuid) {
-        return c.json({ error: 'Bad Request' }, 400);
-    }
 
     const db = c.env.DB;
     await populateData(db);
@@ -84,7 +82,12 @@ app.on(['GET', 'POST'], '/get/:uuid', async (c) => {
     }
 
     const cryptoType: CryptoType = (c.req.query('crypto_type') as CryptoType) || data.crypto_type || 'legacy';
-    return c.json(JSON.parse(decrypt(uuid, data.encrypted, password, cryptoType)) as DecryptedData);
+    const decrypted = decrypt(uuid, data.encrypted, password, cryptoType);
+    if (!decrypted) {
+        return c.json({ error: 'Decryption failed' }, 401);
+    }
+
+    return c.json(JSON.parse(decrypted) as DecryptedData);
 });
 
 export default app;

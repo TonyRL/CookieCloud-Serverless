@@ -1,20 +1,12 @@
-import { CryptoType, DatabaseSchema, SQLite_Master } from '../types';
-
-const checkSqliteMasterStmt = (db: D1Database) => db.prepare('SELECT name FROM sqlite_master WHERE type = ? AND name = ?');
+import { CryptoType, DatabaseSchema } from '../types';
 
 export const populateData = async (db: D1Database): Promise<void> => {
-    const dataTableExist = await checkSqliteMasterStmt(db).bind('table', 'data').first<SQLite_Master>();
-    if (dataTableExist) {
-        // Migrate: add crypto_type column for existing tables
-        try {
-            await db.prepare("ALTER TABLE data ADD COLUMN crypto_type TEXT DEFAULT 'legacy'").run();
-            console.log('Migrated data table: added crypto_type column');
-        } catch {
-            // Column already exists
-        }
-    } else {
-        const info = await db.prepare("CREATE TABLE IF NOT EXISTS data (uuid TEXT PRIMARY KEY, encrypted TEXT, crypto_type TEXT DEFAULT 'legacy', created_at INTEGER)").run();
-        console.log('Populating data table', info.meta);
+    await db.prepare("CREATE TABLE IF NOT EXISTS data (uuid TEXT PRIMARY KEY, encrypted TEXT, crypto_type TEXT DEFAULT 'legacy', created_at INTEGER)").run();
+    // Migrate: add crypto_type column for existing tables created before this column existed
+    try {
+        await db.prepare("ALTER TABLE data ADD COLUMN crypto_type TEXT DEFAULT 'legacy'").run();
+    } catch {
+        // Column already exists
     }
 };
 
