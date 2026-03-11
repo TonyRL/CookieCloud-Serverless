@@ -1,7 +1,8 @@
+export const CRYPTO_TYPES = ['legacy', 'aes-128-cbc-fixed'] as const;
+export type CryptoType = (typeof CRYPTO_TYPES)[number];
+
 export interface Bindings {
     DB: D1Database;
-    BASELIME_API_KEY: string;
-    [key: string]: any;
 }
 
 export interface Body {
@@ -17,6 +18,10 @@ export interface Body {
      * User Key
      */
     uuid: string;
+    /**
+     * Encryption algorithm type
+     */
+    crypto_type?: CryptoType;
 }
 
 interface CookieData {
@@ -34,6 +39,7 @@ interface CookieData {
 
 export interface DatabaseSchema {
     created_at: number;
+    crypto_type: CryptoType;
     encrypted: string;
     uuid: string;
 }
@@ -44,12 +50,4 @@ export interface DecryptedData {
     };
     local_storage_data: unknown;
     update_time: string;
-}
-
-export interface SQLite_Master {
-    type: string;
-    name: string;
-    tbl_name: string;
-    rootpage: number;
-    sql: string;
 }
