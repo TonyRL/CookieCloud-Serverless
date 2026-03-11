@@ -1,36 +1,32 @@
-name: Deploy Worker
+name: CI
 on:
     push:
         branches:
             - main
-    workflow_dispatch: ~
+    pull_request:
 
 jobs:
-    deploy:
+    test:
         runs-on: ubuntu-latest
-        permissions:
-            contents: write
         timeout-minutes: 5
         steps:
             - uses: actions/checkout@v4
-            - uses: pnpm/action-setup@v3
-              with:
-                  version: 10
+            - uses: pnpm/action-setup@v4
             - uses: actions/setup-node@v4
               with:
                   node-version: lts/*
                   cache: 'pnpm'
             - run: pnpm install
-            - name: Build & Deploy Worker
-              uses: cloudflare/wrangler-action@v3
+            - run: pnpm test
+
+    automerge:
+        needs: test
+        if: github.event_name == 'pull_request' && github.actor == 'dependabot[bot]'
+        runs-on: ubuntu-latest
+        permissions:
+            contents: write
+            pull-requests: write
+        steps:
+            - uses: fastify/github-action-merge-dependabot@v3
               with:
-                  apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-                  accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-            - name: Build JS
-              run: pnpm run build
-            - uses: stefanzweifel/git-auto-commit-action@v5
-              with:
-                  commit_message: 'chore: build worker js'
-                  commit_user_name: github-actions[bot]
-                  commit_user_email: 41898282+github-actions[bot]@users.noreply.github.com
-                  commit_author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
+                  github-token: ${{ secrets.GITHUB_TOKEN }}
