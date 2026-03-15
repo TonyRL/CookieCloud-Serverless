@@ -29,7 +29,7 @@
         "@types/pako": "^2.0.4",
         "@vitest/coverage-istanbul": "^3.2.4",
         "oxfmt": "^0.40.0",
-        "oxlint": "^1.52.0",
+        "oxlint": "^1.55.0",
         "oxlint-tsgolint": "^0.17.0",
         "typescript": "^5.9.3",
         "vitest": "^3.2.4",
