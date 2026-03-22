@@ -28,7 +28,7 @@
         "@types/crypto-js": "^4.2.2",
         "@types/pako": "^2.0.4",
         "@vitest/coverage-istanbul": "^4.1.0",
-        "oxfmt": "^0.40.0",
+        "oxfmt": "^0.41.0",
         "oxlint": "^1.55.0",
         "oxlint-tsgolint": "^0.17.0",
         "typescript": "^5.9.3",
