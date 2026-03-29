@@ -15,8 +15,8 @@ importers:
         specifier: ^4.2.0
         version: 4.2.0
       hono:
-        specifier: ^4.12.8
-        version: 4.12.8
+        specifier: ^4.12.9
+        version: 4.12.9
       pako:
         specifier: ^2.1.0
         version: 2.1.0
@@ -1254,8 +1254,8 @@ packages:
     resolution: {integrity: sha512-EykJT/Q1KjTWctppgIAgfSO0tKVuZUjhgMr17kqTumMl6Afv3EISleU7qZUzoXDFTAHTDC4NOoG/ZxU3EvlMPQ==}
     engines: {node: '>=8'}
 
-  hono@4.12.8:
-    resolution: {integrity: sha512-VJCEvtrezO1IAR+kqEYnxUOoStaQPGrCmX3j4wDTNOcD1uRPFpGlwQUIW8niPuvHXaTUxeOUl5MMDGrl+tmO9A==}
+  hono@4.12.9:
+    resolution: {integrity: sha512-wy3T8Zm2bsEvxKZM5w21VdHDDcwVS1yUFFY6i8UobSsKfFceT7TOwhbhfKsDyx7tYQlmRM5FLpIuYvNFyjctiA==}
     engines: {node: '>=16.9.0'}
 
   html-escaper@2.0.2:
@@ -2398,7 +2398,7 @@ snapshots:
 
   has-flag@4.0.0: {}
 
-  hono@4.12.8: {}
+  hono@4.12.9: {}
 
   html-escaper@2.0.2: {}
 
