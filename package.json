@@ -30,7 +30,7 @@
         "@vitest/coverage-istanbul": "^4.1.2",
         "oxfmt": "^0.56.0",
         "oxlint": "^1.72.0",
-        "oxlint-tsgolint": "^0.23.0",
+        "oxlint-tsgolint": "^0.24.0",
         "typescript": "^6.0.3",
         "vitest": "^4.1.2",
         "wrangler": "^4.105.0"
