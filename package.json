@@ -23,7 +23,7 @@
         "pako": "^3.0.1"
     },
     "devDependencies": {
-        "@cloudflare/vitest-pool-workers": "^0.18.0",
+        "@cloudflare/vitest-pool-workers": "^0.18.4",
         "@cloudflare/workers-types": "^4.20260702.1",
         "@types/crypto-js": "^4.2.2",
         "@types/pako": "^2.0.4",
