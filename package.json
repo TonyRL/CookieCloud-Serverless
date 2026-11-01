@@ -19,7 +19,7 @@
     },
     "dependencies": {
         "crypto-js": "^4.2.0",
-        "hono": "^4.13.10",
+        "hono": "^4.13.14",
         "pako": "^3.0.2"
     },
     "devDependencies": {
