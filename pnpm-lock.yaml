@@ -18,8 +18,8 @@ importers:
         specifier: ^4.13.14
         version: 4.13.14
       pako:
-        specifier: ^3.0.2
-        version: 3.0.2
+        specifier: ^3.0.3
+        version: 3.0.3
     devDependencies:
       '@cloudflare/vitest-pool-workers':
         specifier: ^0.22.0
@@ -1533,8 +1533,8 @@ packages:
       vite-plus:
         optional: true
 
-  pako@3.0.2:
-    resolution: {integrity: sha512-uBv6IT2aT1A78iU6dpNEbf6+CyhlV/6g9JlJs9kpgjFGFhruIICVRysF/W0SLzXg5+hCl+KroH7e4YUyfEmgLg==}
+  pako@3.0.3:
+    resolution: {integrity: sha512-tmrebBBYI5FOw8QICGwJNqE8fotC8R+gwcxOvoFNv+GKehOI6Lc6YBolNcQNnC4v96l1wt7rh102ifD4kVeZAQ==}
 
   path-to-regexp@6.3.0:
     resolution: {integrity: sha512-Yhpw4T9C6hPpgPeA28us07OJeqZ5EzQTkbfwuhsUg0c237RomFoETJgmp2sa3F/41gfLE6G5cqcYwznmeEeOlQ==}
@@ -2488,7 +2488,7 @@ snapshots:
 
   '@types/pako@3.0.0':
     dependencies:
-      pako: 3.0.2
+      pako: 3.0.3
 
   '@typescript/typescript-aix-ppc64@7.0.2':
     optional: true
@@ -2857,7 +2857,7 @@ snapshots:
       '@oxlint/binding-win32-x64-msvc': 1.80.0
       oxlint-tsgolint: 7.0.2005
 
-  pako@3.0.2: {}
+  pako@3.0.3: {}
 
   path-to-regexp@6.3.0: {}
 
